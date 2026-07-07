@@ -1,0 +1,18 @@
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Vermillion Axis home">
+      <svg class="mark" viewBox="0 0 40 48"><line x1="20" y1="0" x2="20" y2="36" stroke="#c8452b" stroke-width="1.2" opacity=".9"/><path d="M8 6 L20 38 L32 6" stroke="#f2ebdf" stroke-width="3.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="38" r="3.2" fill="#df6f47"/><circle cx="20" cy="38" r="7" fill="rgba(200,69,43,.35)"/></svg>
+      <span>Vermillion <i>Axis</i></span>
+    </a>
+    <nav class="links">
+      <a href="#work">Portfolio</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#contact">Contact</a>
+      <a class="btn primary" style="padding:10px 22px;font-size:15px" href="#contact">Start a Project</a>
+    </nav>
+    <button class="burger" aria-label="Open menu" onclick="document.querySelector('.menu').classList.add('open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu" role="dialog" aria-label="Menu">
+  <button class="close" aria-label="Close menu" onclick="this.parentNode.classList.remove('open')">×</button>
+  <a href="#work">Portfolio</a><a href="#services">Services</a><a class="hot" href="#pricing">Pricing</a><a href="#process">Process</a><a href="#contact">Contact</a>
+  <a class="btn primary" href="#contact">Start a Project</a>
+</div>

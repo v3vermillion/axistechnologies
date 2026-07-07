@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2048'%3E%3Cpath%20d='M8%206%20L20%2038%20L32%206'%20stroke='%23f2ebdf'%20stroke-width='5'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='20'%20cy='38'%20r='4'%20fill='%23c8452b'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#080808">
+<title>Vermillion Axis Technologies | Infrastructure-Grade Software Engineering</title>
+<meta name="description" content="We build the systems that run your operation. Engineered for load, hardened for production, delivered with the source. 3–21 day delivery. 100% code ownership.">
+<meta property="og:title" content="Vermillion Axis Technologies | Infrastructure-Grade Software Engineering">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body id="top">
+<slot />
+<script is:inline>
+// marquees: duplicate items until track is 2x viewport, animate loop
+document.querySelectorAll('.track').forEach(t=>{
+  const items=t.dataset.mq.split(',');
+  let html='';
+  for(let r=0;r<6;r++) items.forEach(x=>html+='<span>'+x.toUpperCase()+'</span>');
+  t.innerHTML=html;
+});
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// count-up stats
+const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;co.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'';const t0=performance.now();
+  const step=n=>{const p=Math.min((n-t0)/1200,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+// FAQ accordion
+document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+  const qa=b.parentNode,open=qa.classList.contains('open');
+  document.querySelectorAll('.qa.open').forEach(o=>{o.classList.remove('open');o.querySelector('.a').style.maxHeight=0;o.querySelector('button').setAttribute('aria-expanded','false')});
+  if(!open){qa.classList.add('open');const a=qa.querySelector('.a');a.style.maxHeight=a.scrollHeight+'px';b.setAttribute('aria-expanded','true');}
+}));
+// mobile menu: close on link tap
+document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.menu').classList.remove('open')));
+// back-to-top visibility
+addEventListener('scroll',()=>document.querySelector('.toTop').classList.toggle('show',scrollY>700),{passive:true});
+// contact form -> opens email draft to contact@vermillionaxis.tech (swap for your API/Formspree endpoint when ready)
+document.getElementById('projectForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const body=encodeURIComponent(`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nBusiness: ${f.get('business')||'—'}\nScope: ${f.get('scope')||'—'}\n\n${f.get('message')}`);
+  location.href=`mailto:contact@vermillionaxis.tech?subject=${encodeURIComponent('Project Inquiry — '+(f.get('name')||''))}&body=${body}`;
+});
+
+// scroll-lock while menu is open
+const _menu=document.querySelector('.menu');
+new MutationObserver(()=>{document.body.style.overflow=_menu.classList.contains('open')?'hidden':''}).observe(_menu,{attributes:true,attributeFilter:['class']});
+// keep open FAQ sized correctly on rotate/resize
+addEventListener('resize',()=>{const o=document.querySelector('.qa.open .a');if(o)o.style.maxHeight=o.scrollHeight+'px'},{passive:true});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

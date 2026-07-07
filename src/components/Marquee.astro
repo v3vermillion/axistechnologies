@@ -1,0 +1,4 @@
+---
+const { items, ghost = false } = Astro.props;
+---
+<div class:list={["marquee", { ghost }]} aria-hidden="true"><div class="track" data-mq={items}></div></div>

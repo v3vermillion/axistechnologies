@@ -1,18 +1,22 @@
-# axistechnologies
+# Vermillion Axis Technologies — Astro Rebuild
 
-Rebuild of **vermillionaxis.tech**.
+Component-structured Astro rebuild of vermillionaxis.tech. Verified with `astro build`.
 
-While the new site is under construction, this repository serves a temporary
-landing page that redirects visitors to the project on GitHub:
-<https://github.com/v3vermillion/axistechnologies>.
+## Develop
+    npm install
+    npm run dev        # localhost:4321
 
-## How the redirect works
+## Deploy
+    npm run build      # outputs dist/
+Push to GitHub and import into Vercel/Netlify (auto-detects Astro), or drag `dist/` into Netlify Drop.
+Point vermillionaxis.tech at the host (Vercel: A 76.76.21.21, CNAME cname.vercel-dns.com for www).
 
-- `index.html` — landing page with a `<meta http-equiv="refresh">` redirect,
-  a JavaScript `location.replace` fallback, and a manual link.
-- `404.html` — same redirect, so any unknown path also forwards to GitHub.
-- `.github/workflows/pages.yml` — deploys the root of this repo to GitHub Pages
-  on every push to `main`.
+## Structure
+- `src/pages/index.astro` — page composition
+- `src/components/` — Header, Hero, Work, Pricing, Why, Capabilities, Process, Statement, Testimonials, Faq, Contact, Footer, Marquee, Divider
+- `src/layouts/Layout.astro` — head, fonts, global script
+- `src/styles/global.css` — full design system (vermillion #c8452b / ivory / #080808)
 
-Once the rebuilt site is ready, replace `index.html` (and remove the redirect)
-to publish the real site through the same Pages workflow.
+## Notes
+- Contact form opens a prefilled email to contact@vermillionaxis.tech — swap the handler in Layout.astro for Formspree/your API to capture leads server-side.
+- Five FAQ answers were rewritten in brand voice (closed in reference screenshots); "What happens after launch?" is verbatim.
