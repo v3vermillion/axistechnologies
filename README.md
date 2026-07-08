@@ -15,7 +15,7 @@ Point vermillionaxis.tech at the host (Vercel: A 76.76.21.21, CNAME cname.vercel
 - `src/pages/index.astro` — page composition
 - `src/components/` — Header, Hero, Work, Pricing, Why, Capabilities, Process, Statement, Testimonials, Faq, Contact, Footer, Marquee, Divider
 - `src/layouts/Layout.astro` — head, fonts, global script
-- `src/styles/global.css` — full design system (vermillion #c8452b / ivory / #080808)
+- `src/styles/global.css` — full design system (crimson #e63b4e / silver neutrals / #090607, self-hosted fonts in `public/fonts/`)
 
 ## Notes
 - Contact form opens a prefilled email to contact@vermillionaxis.tech — swap the handler in Layout.astro for Formspree/your API to capture leads server-side.
