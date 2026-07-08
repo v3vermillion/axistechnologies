@@ -33,14 +33,15 @@ document.querySelectorAll('.track').forEach(t=>{
 // reveal on scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-// count-up stats
-const co=new IntersectionObserver(es=>es.forEach(e=>{
-  if(!e.isIntersecting)return;co.unobserve(e.target);
-  const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'';const t0=performance.now();
+// count-up stats: all boxes animate together when the grid enters view
+const runCount=el=>{const end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now();
   const step=n=>{const p=Math.min((n-t0)/1200,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(step)};
-  requestAnimationFrame(step);
-}),{threshold:.6});
-document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+  requestAnimationFrame(step)};
+const sg=document.querySelector('.sgrid');
+if(sg){const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;co.unobserve(sg);
+  sg.querySelectorAll('[data-count]').forEach(runCount);
+}),{threshold:.35});co.observe(sg);}
 // FAQ accordion
 document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
   const qa=b.parentNode,open=qa.classList.contains('open');
@@ -50,7 +51,7 @@ document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()
 // mobile menu: close on link tap
 document.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.menu').classList.remove('open')));
 // back-to-top visibility
-addEventListener('scroll',()=>document.querySelector('.toTop').classList.toggle('show',scrollY>700),{passive:true});
+addEventListener('scroll',()=>{const nearBottom=innerHeight+scrollY>document.body.offsetHeight-560;document.querySelector('.toTop').classList.toggle('show',scrollY>700&&!nearBottom)},{passive:true});
 // contact form -> opens email draft to contact@vermillionaxis.tech (swap for your API/Formspree endpoint when ready)
 document.getElementById('projectForm').addEventListener('submit',e=>{
   e.preventDefault();
