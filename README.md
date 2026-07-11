@@ -8,6 +8,7 @@
 
 [**Live Site →**](https://vermillionaxis.tech)
 
+[![CI](https://github.com/v3vermillion/axistechnologies/actions/workflows/ci.yml/badge.svg)](https://github.com/v3vermillion/axistechnologies/actions/workflows/ci.yml)
 [![Deploy to GitHub Pages](https://github.com/v3vermillion/axistechnologies/actions/workflows/pages.yml/badge.svg)](https://github.com/v3vermillion/axistechnologies/actions/workflows/pages.yml)
 ![Astro](https://img.shields.io/badge/Astro-5.x-BC52EE?logo=astro&logoColor=white)
 ![Zero runtime dependencies](https://img.shields.io/badge/runtime_deps-0-e63b4e)
@@ -76,22 +77,35 @@ Every product mockup is hand-built markup — no images — so the portfolio ren
 │   └── styles/global.css        #   the complete design system
 ├── public/fonts/                # Font subsets for the Astro build
 │
-└── .github/workflows/pages.yml  # CI — deploys repo root to GitHub Pages on push
+├── tests/site.spec.ts           # Playwright verification suite — runs on every push
+├── playwright.config.ts         #   phone / tablet / desktop projects + static server
+│
+├── .github/workflows/ci.yml     # CI — Playwright suite + Lighthouse audit
+└── .github/workflows/pages.yml  # CD — deploys repo root to GitHub Pages on push
 ```
 
 ## Quality & Verification
 
-Every release is gated on an automated Playwright pass against the exact deploy artifact:
+Every push runs the committed Playwright suite ([`tests/site.spec.ts`](tests/site.spec.ts)) in GitHub Actions against the exact deploy artifact, at phone (393 px), tablet (834 px), and desktop (1440 px) viewports:
 
 | Check | Method |
 |---|---|
-| Rendering | Full-page captures at iPhone 14 Pro, iPad Pro 11, 1440 px desktop |
-| Layout integrity | Document width must equal viewport width — zero horizontal overflow |
-| Console hygiene | Zero console errors, zero page errors across all viewports |
-| Interactions | Menu + scroll-lock, FAQ ARIA states, form validation, marquees, back-to-top handoff |
-| Counter sync | Stat counters sampled mid-animation and proven to run in lockstep |
-| Spacing rhythm | DOM content-edge audit of every inter-section gap |
-| Motion safety | Dedicated `prefers-reduced-motion` render with all animation disabled |
+| Rendering | Full-page captures at all three viewports, attached to every CI run |
+| Layout integrity | Document width must equal viewport width — zero horizontal overflow at load and after a full scroll |
+| Console hygiene | Zero console errors, zero page errors while walking the entire page |
+| Interactions | Menu open/close + body scroll-lock, exclusive FAQ accordion with ARIA state, native form validation, marquee population, back-to-top handoff |
+| Counter accuracy | All four stat counters animate to their exact `data-count` targets |
+| Motion safety | Dedicated `prefers-reduced-motion` render — reveals forced visible, marquee and plumb-line animations off |
+
+A Lighthouse audit runs alongside the suite on every push. Spacing rhythm (the DOM content-edge gap survey) and mid-animation counter-sync sampling were one-off development audits whose results are baked into the design system above.
+
+Run the suite locally:
+
+```bash
+npm install
+npx playwright install chromium
+npm test
+```
 
 ## Getting Started
 
@@ -119,12 +133,16 @@ npm run build   # outputs dist/
 
 > Displayed metrics and portfolio mockups are illustrative — this repository is a demonstration build.
 
+## License
+
+Code is released under the [MIT License](LICENSE). The Vermillion Axis Technologies name, logo, and brand identity are not licensed for reuse.
+
 ---
 
 <div align="center">
 
 **Vermillion Axis Technologies** · Systems architecture for organizations that refuse to compromise.
 
-[vermillionaxis.tech](https://vermillionaxis.tech) · [contact@vermillionaxis.tech](mailto:contact@vermillionaxis.tech) · (234)-343-9124
+[vermillionaxis.tech](https://vermillionaxis.tech) · [contact@vermillionaxis.tech](mailto:contact@vermillionaxis.tech)
 
 </div>
