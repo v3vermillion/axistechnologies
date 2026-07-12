@@ -126,7 +126,8 @@ test('mobile menu opens, locks body scroll, and closes', async ({ page }) => {
 
   await page.locator('.menu .close').click();
   await expect(page.locator('.menu')).not.toHaveClass(/open/);
-  await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  // overflow-x stays hidden by design (anti-overflow guard); vertical scroll must unlock.
+  await expect(page.locator('body')).toHaveCSS('overflow-y', 'auto');
 });
 
 test('contact form blocks empty submission via native validation', async ({ page }) => {

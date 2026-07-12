@@ -135,7 +135,7 @@ npm run build   # outputs dist/
 
 ## License
 
-Code is released under the [MIT License](LICENSE). The Vermillion Axis Technologies name, logo, and brand identity are not licensed for reuse.
+Code is released under the [MIT License](LICENSE). The bundled typefaces (Cormorant Garamond, Source Sans 3, JetBrains Mono) are redistributed under their own [SIL Open Font License 1.1](https://openfontlicense.org) terms. The Vermillion Axis Technologies name, logo, and brand identity are not licensed for reuse.
 
 ---
 
@@ -143,6 +143,6 @@ Code is released under the [MIT License](LICENSE). The Vermillion Axis Technolog
 
 **Vermillion Axis Technologies** · Systems architecture for organizations that refuse to compromise.
 
-[vermillionaxis.tech](https://vermillionaxis.tech) · [contact@vermillionaxis.tech](mailto:contact@vermillionaxis.tech)
+[vermillionaxis.tech](https://vermillionaxis.tech) · [forgetraining@proton.me](mailto:forgetraining@proton.me)
 
 </div>
