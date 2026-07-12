@@ -31,13 +31,13 @@ A component-structured **Astro source tree** mirrors the artifact 1:1 for teams 
 
 ## Engineering Decisions
 
-**Design tokens derived from measurement, not guesswork.** The crimson accent family (`#e63b4e`, hue 353°), the neutral silver text ramp, and the logo lockup proportions were pixel-sampled and measured from brand reference material, then propagated through every one of the site's ~130 color references. Nothing is approximately on-brand; it is provably on-brand.
+**Design tokens derived from measurement.** The crimson accent family (`#e63b4e`, hue 353°), the neutral silver text ramp, and the logo lockup proportions were pixel-sampled and measured from brand reference material, then propagated through every one of the site's ~130 color references. Nothing is approximately on-brand; it is provably on-brand.
 
 **A zero-dependency deploy artifact.** `index.html` requires no build step, no package install, and no server logic. It can be served by any static host, opened from disk, or embedded in another system. The Astro tree exists for developer ergonomics, not as a runtime requirement.
 
 **Self-hosted, subset typography.** Cormorant Garamond (display serif), Source Sans 3 (body), and JetBrains Mono (metrics) ship as latin `woff2` subsets — 196 KB total, preloaded, `font-display: swap`. Removing the Google Fonts round-trip eliminates a DNS + TLS handshake from the critical path and the site's only third-party tracking surface.
 
-**Motion as a system, not decoration.** A choreographed hero sequence (plumb-line drop → lockup fade → staggered headline), scroll-triggered reveals, synchronized stat counters, slow capability marquees, and a recurring sheen sweep on the primary CTA — every animation is driven by two IntersectionObservers and CSS keyframes, and every one of them is disabled under `prefers-reduced-motion` with content fully visible.
+**Motion engineered as a system.** A choreographed hero sequence (plumb-line drop → lockup fade → staggered headline), scroll-triggered reveals, synchronized stat counters, slow capability marquees, and a recurring sheen sweep on the primary CTA — every animation is driven by two IntersectionObservers and CSS keyframes, and every one of them is disabled under `prefers-reduced-motion` with content fully visible.
 
 **Spacing on a measured rhythm.** Inter-section gaps were audited programmatically (DOM content-edge analysis at three viewports) and normalized to a consistent 83–176 px scale, with section padding stepping from 88 px (desktop) to 64 px (mobile).
 
